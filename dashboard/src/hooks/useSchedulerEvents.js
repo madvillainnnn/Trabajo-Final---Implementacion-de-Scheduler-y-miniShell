@@ -161,6 +161,23 @@ export default function useSchedulerEvents() {
               });
               break;
 
+            case 'PROCESS_UPDATE':
+              setProcesses(prev => {
+                if (!prev[event.pid]) return prev;
+
+                const proc = {
+                  ...prev[event.pid],
+                  cpuTime: event.cpu_ms,
+                  switches: event.switches,
+                };
+
+                return {
+                  ...prev,
+                  [event.pid]: proc,
+                };
+              });
+              break;
+
             case 'SLICE_CHANGED':
               setCurrentSlice(event.new_ms);
               break;

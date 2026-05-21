@@ -21,5 +21,10 @@ void monitor_emit_created(pid_t pid, const char *name);
 void monitor_emit_terminated(pid_t pid, double cpu_ms, int switches);
 void monitor_emit_registers(pid_t pid, unsigned long long pc, unsigned long long sp);
 void monitor_emit_slice_changed(int old_ms, int new_ms);
+void monitor_emit_update(
+    pid_t pid,
+    double cpu_ms,
+    int switches
+);
 
 #endif

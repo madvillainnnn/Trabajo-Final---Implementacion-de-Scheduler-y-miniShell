@@ -46,8 +46,15 @@ void pcb_print(const pcb_t *pcb) {
 void pcb_print_table(void) {
     printf("%-6s %-16s %-12s %10s %10s %9s\n",
            "PID", "NOMBRE", "ESTADO", "CPU(ms)", "ESPERA(ms)", "SWITCHES");
+
     printf("─────────────────────────────────────────────────────────────────────\n");
+
     for (int i = 0; i < process_count; i++) {
+
+        if (process_table[i].state == PROC_TERMINATED) {
+            continue;
+        }
+
         printf("%-6d %-16s %-12s %10.1f %10.1f %9d\n",
                process_table[i].pid,
                process_table[i].name,

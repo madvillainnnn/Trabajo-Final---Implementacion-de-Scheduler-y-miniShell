@@ -120,6 +120,31 @@ void monitor_emit_terminated(pid_t pid, double cpu_ms, int switches) {
     emit_line(buf);
 }
 
+void monitor_emit_update(
+    pid_t pid,
+    double cpu_ms,
+    int switches
+) {
+
+    char buf[256];
+
+    snprintf(
+        buf,
+        sizeof(buf),
+        "{\"type\":\"PROCESS_UPDATE\","
+        "\"ts\":%.3f,"
+        "\"pid\":%d,"
+        "\"cpu_ms\":%.1f,"
+        "\"switches\":%d}\n",
+        get_timestamp(),
+        pid,
+        cpu_ms,
+        switches
+    );
+
+    emit_line(buf);
+}
+
 void monitor_emit_registers(pid_t pid, unsigned long long pc, unsigned long long sp) {
     char buf[256];
     snprintf(buf, sizeof(buf),
